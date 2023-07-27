@@ -1,0 +1,38 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+#map {
+    width: 100%;
+    height: 100vh;
+    background-color: #fff;
+}
+
+.label-tooltip {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    box-shadow: none;
+    color: black;
+    /* padding: 2px 4px; */
+}
+
+
+.leaflet-control-attribution {
+    display: none !important;
+}
+
+.leaflet-tooltip {
+    background-color: rgba(255, 255, 255, 0) !important;
+    border: none !important;
+    box-shadow: none !important;
+
+}
+
+.label-tooltip {
+    font-size: 8px;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+    margin-top: 16px;
+    /* margin-left: -10px; */
+}
