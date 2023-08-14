@@ -16,7 +16,12 @@ var parcelStyle = {
 L.geoJSON(parcels, {
     style: parcelStyle,
     onEachFeature: function (feature, layer) {
-        layer.bindTooltip(feature.properties.sl + '', {
+        let html=feature.properties.sl;
+
+        if(feature.properties.type==='OTHER')
+            html+='<br>'+ feature.properties.name;
+
+        layer.bindTooltip(html + '', {
             permanent: true,
             direction: "center",
             opacity: 1,
@@ -25,7 +30,8 @@ L.geoJSON(parcels, {
     }
 }).addTo(map);
 
-let sheet = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRObOsQiH_HX2ztDCROGeJENzJUaTgzrqd0y-_vl4lROv0ZUXHdTVFIQ6ibpSm3wSGDh8JSWaMtVDIM/pub?output=csv';
+// let sheet = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRObOsQiH_HX2ztDCROGeJENzJUaTgzrqd0y-_vl4lROv0ZUXHdTVFIQ6ibpSm3wSGDh8JSWaMtVDIM/pub?output=csv';
+let sheet = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4OzonVDVf-gKufo3tWF1WOKYvxvuQyWgEIJV8iZDPNdPrUvCZ-oDEYltb8P9NudPVt3sxKS28DhxL/pub?output=csv';
 
 Papa.parse(sheet, {
     download: true,
