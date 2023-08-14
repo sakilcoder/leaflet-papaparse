@@ -16,10 +16,10 @@ var parcelStyle = {
 L.geoJSON(parcels, {
     style: parcelStyle,
     onEachFeature: function (feature, layer) {
-        let html=feature.properties.sl;
+        let html = feature.properties.sl;
 
-        if(feature.properties.type==='OTHER')
-            html+='<br>'+ feature.properties.name;
+        if (feature.properties.type === 'OTHER')
+            html += '<br>' + feature.properties.name;
 
         layer.bindTooltip(html + '', {
             permanent: true,
@@ -63,6 +63,56 @@ Papa.parse(sheet, {
                     opacity: 1,
                     className: 'label-tooltip'
                 });
+
+                var popup = L.popup();
+                let str_popup = '<p style="font-weight:bold; font-size: 10px">' + feature.properties.name + '</p>';
+
+                if (feature.properties.name == 'B11' || feature.properties.name == 'B12')
+                    str_popup += `<div id="myCarousel" class="carousel slide" data-ride="carousel" style="min-width:250px">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                  <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#myCarousel" data-slide-to="1"></li>
+                  <li data-target="#myCarousel" data-slide-to="2"></li>
+                </ol>
+            
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <img src="assets/images/interior-11.jpeg" style="width:100%;">
+                  </div>
+            
+                  <div class="item">
+                    <img src="assets/images/interior-12.jpeg" style="width:100%;">
+                  </div>
+                
+                  <div class="item">
+                    <img src="assets/images/newhome-800x500.png" style="width:100%;">
+                  </div>
+                </div>
+            
+                <!-- Left and right controls -->
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>`;
+
+                str_popup += feature.properties.status + ' (' + feature.properties.type + ')<br>';
+                if (feature.properties.home != '') {
+                    str_popup += 'Home: ' + feature.properties.home + '<br>';
+                    str_popup += 'Beds: ' + feature.properties.beds + '<br>';
+                    str_popup += 'Baths: ' + feature.properties.baths + '<br>';
+                    str_popup += 'Price: ' + feature.properties.price + '<br>';
+                }
+
+                popup.setContent(str_popup);
+                layer.bindPopup(popup);
+
             }
         }).addTo(map);
     }
